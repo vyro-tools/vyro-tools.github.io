@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#090d20"><title>VYRO — Discover AI. Do More.</title>
+<style>
+:root{--bg:#080b1b;--panel:#111a35;--line:#29375e;--white:#f4f6ff;--muted:#aab4d1;--purple:#8457ff;--cyan:#19c7e9}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 10%,#121c3a 0,#080b1b 50%);color:var(--white);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 20px;border-bottom:1px solid #263152;position:sticky;top:0;background:#080b1bf2;z-index:3}.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:4px;font-size:23px}.v{font-size:38px;background:linear-gradient(135deg,#9b48ff,#27c9ed);color:transparent;background-clip:text}.nav{display:flex;gap:10px;align-items:center}.nav button{color:var(--white);background:transparent;border:1px solid #29375e;border-radius:30px;padding:10px 15px;font-size:14px;cursor:pointer}main{max-width:900px;margin:auto;padding:34px 20px 60px}.hero{text-align:center;padding:40px 0 32px}.eyebrow{color:#83b4ee;letter-spacing:4px;font-size:13px;margin-bottom:24px}.headline{font-size:clamp(42px,9vw,76px);line-height:1.08;font-weight:800;margin:0 0 24px;letter-spacing:1px}.cyan{color:var(--cyan)}.purple{color:#9b57ff}.sub{font-size:20px;color:#c0c8dc;max-width:640px;margin:0 auto 28px}.searchbox{display:flex;gap:10px;padding:10px;border:1px solid #3b5489;border-radius:24px;background:#0e1630;box-shadow:0 0 30px #15254b66;margin:0 auto;max-width:760px}.searchbox input{flex:1;min-width:0;border:0;background:transparent;color:#fff;font-size:18px;padding:12px 14px;outline:none}.searchbox input::placeholder{color:#7885a8}.searchbox button{border:0;border-radius:18px;background:linear-gradient(120deg,#8744f9,#12bfe5);color:#fff;font-size:16px;font-weight:700;padding:14px 22px;cursor:pointer}.section-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:36px 0 18px}.section-title h2{margin:0;font-size:24px}.section-title small{color:var(--muted)}.categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.cat{background:#111a35;border:1px solid #28365b;color:#eaf0ff;border-radius:15px;padding:15px;text-align:start;font-size:15px;cursor:pointer}.cat.active{border-color:#8c58ff;background:#1b2350;box-shadow:0 0 12px #7c42ff33}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.chip{background:transparent;border:1px solid #36476e;color:#c6cfea;border-radius:30px;padding:8px 14px;font-size:14px;cursor:pointer}.chip.active{background:#1b2350;border-color:#8c58ff;color:#fff}.tools{display:grid;grid-template-columns:1fr;gap:14px}.tool{background:#111a35;border:1px solid #26365b;border-radius:22px;padding:18px}.tool-top{display:flex;gap:14px;align-items:center}.ico{width:66px;height:66px;border-radius:18px;background:linear-gradient(145deg,#234c78,#18a9cb);display:grid;place-items:center;font-size:30px;flex-shrink:0}.tool h3{margin:0;font-size:20px;overflow-wrap:anywhere}.tool .type{color:#8fb2df;font-size:14px;margin-top:3px}.tool p{color:#bac5de;line-height:1.6;margin:14px 0}.tags{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}.tag{border:1px solid #36476e;border-radius:30px;padding:6px 12px;color:#c6cfea;font-size:13px}.status{font-weight:700}.status-free{border-color:#287c5a;color:#74e2ad;background:#102d27}.status-freemium{border-color:#5265b8;color:#aebcff;background:#172347}.status-paid{border-color:#b36a43;color:#ffbc91;background:#39251b}.status-trial{border-color:#9a7b38;color:#f3d27b;background:#342c19}.status-unverified{border-color:#65718e;color:#c4cbe0;background:#202a42}.tool a{display:block;text-decoration:none;text-align:center;background:#1a2b53;color:#fff;border:1px solid #304777;padding:14px;border-radius:15px;font-weight:650}.empty{text-align:center;color:#b7c2dd;padding:32px;grid-column:1/-1}.more{display:block;margin:20px auto 0;background:#1a2b53;color:#fff;border:1px solid #304777;border-radius:15px;padding:14px 28px;font-size:16px;cursor:pointer}.footer{border-top:1px solid #253253;color:#8d9bb9;padding:24px 0;text-align:center;font-size:13px;margin-top:50px}:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}body[dir=rtl] .searchbox,body[dir=rtl] .tool-top,body[dir=rtl] .section-title,body[dir=rtl] .nav{flex-direction:row-reverse}@media(min-width:650px){.categories{grid-template-columns:repeat(4,minmax(0,1fr))}.tools{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-top:56px}}
+</style></head><body>
+<header><div class="nav"><button id="exploreBtn">↗ Explore</button><button id="langBtn">العربية</button></div><div class="nav"><button id="homeBtn">Home</button><div class="brand">VYRO <span class="v">V</span></div></div></header>
+<main>
+<section class="hero"><div class="eyebrow" id="eyebrow">ONE PLACE. ENDLESS POSSIBILITIES</div><h1 class="headline" id="headline">DISCOVER AI. <span class="cyan">DO</span><br><span class="purple">MORE.</span></h1><p class="sub" id="sub">Find the right AI tool for your needs — without the endless searching.</p>
+<form class="searchbox" id="searchForm"><input id="searchInput" type="search" enterkeyhint="search" autocomplete="off" spellcheck="false" placeholder="Search (e.g. make a video from text)" aria-label="Search AI tools"><button type="submit" id="searchBtn">↗ Search</button></form></section>
+<div class="section-title"><h2 id="catTitle">Explore Categories</h2><small id="catHint">Pick what you want to create</small></div>
+<div class="categories" id="categories"></div><div class="chips" id="chips"></div>
+<div class="section-title"><h2 id="toolsTitle">Explore AI Tools</h2><small id="count"></small></div>
+<div class="tools" id="tools"></div><button class="more" id="moreBtn" hidden></button>
+<div class="footer" id="footer">Tool details and free-plan availability may change. Verify on each tool’s official website.</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL="https://znysymqmjxpmcxfqpmqp.supabase.co";
+const SUPABASE_KEY="sb_publishable_3-UXEREhL_p90z6FOmUCig_vRpSpCyr";
+const PAGE=24, CACHE="vyro_tools_cache_v1";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl=u=>/^https?:\/\//i.test(u)?u:"#";
+const catAr={"Video":"فيديو","Image & Design":"الصورة والتصميم","Voice":"الصوت","Audio & Voice":"الصوت","Writing":"الكتابة","Chat & Research":"الدردشة والبحث","Research":"البحث","Productivity":"الإنتاجية","Editing & Productivity":"التحرير والإنتاجية","Coding":"البرمجة","Other":"أخرى"};
+const stEn={free:"FREE",freemium:"FREEMIUM",paid:"PAID",trial:"TRIAL",unverified:"UNVERIFIED"};
+const stAr={free:"مجاني",freemium:"مجاني بحدود / مدفوع",paid:"مدفوع",trial:"تجربة مجانية",unverified:"غير مؤكد"};
+const alias={"فيديو":["video"],"فيديوهات":["video"],"فديو":["video"],"صور":["image","design"],"صوره":["image","design"],"صورة":["image","design"],"تصميم":["design","image"],"صوت":["voice","audio"],"كتابه":["writing"],"كتابة":["writing"],"بحث":["research"],"برمجه":["coding"],"برمجة":["coding"],"مونتاج":["edit","video"],"ترجمه":["subtitle"],"ترجمة":["subtitle"]};
+let all=[],active="All",stat="all",shown=PAGE,arabic=false,status="loading";
+const norm=v=>(v||"").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/[^\p{L}\p{N}\s]/gu," ").replace(/\s+/g," ").trim();
+const catLabel=c=>c==="All"?(arabic?"الكل":"All"):(arabic?catAr[c]||c:c);
+const t=(en,ar)=>arabic?ar:en;
+
+function matches(x,q){
+  if(!q)return true;
+  const hay=x._h||(x._h=norm([x.name,x.category,x.desc_en,x.desc_ar,x.keywords].join(" ")));
+  const words=norm(q).split(" ").filter(w=>w.length>1);
+  if(!words.length)return true;
+  return words.every(w=>hay.includes(w)||(alias[w]||[]).some(a=>hay.includes(a)));
+}
+function filtered(){
+  const q=$("searchInput").value.trim();
+  return all.filter(x=>(active==="All"||x.category===active)&&(stat==="all"||x.status===stat)&&matches(x,q));
+}
+function renderCats(){
+  const cats=["All",...[...new Set(all.map(x=>x.category).filter(Boolean))].sort()];
+  $("categories").innerHTML=cats.map(c=>`<button class="cat ${active===c?"active":""}" data-c="${esc(c)}">${esc(catLabel(c))}</button>`).join("");
+  const sts=[["all",t("All plans","كل الخطط")],["free",stAr.free],["freemium",stAr.freemium],["paid",stAr.paid],["trial",stAr.trial]];
+  $("chips").innerHTML=sts.map(([k,l])=>`<button class="chip ${stat===k?"active":""}" data-s="${k}">${esc(k==="all"?l:t(stEn[k],stAr[k]))}</button>`).join("");
+}
+function renderTools(){
+  if(status==="loading"&&!all.length){$("tools").innerHTML=`<div class="empty">${t("Loading tools…","جاري تحميل الأدوات…")}</div>`;$("count").textContent="";return}
+  if(status==="error"&&!all.length){$("tools").innerHTML=`<div class="empty">${t("Couldn’t load the tools. Check your connection and refresh.","تعذر تحميل الأدوات. تأكد من الاتصال وحدّث الصفحة.")}</div>`;return}
+  const list=filtered();
+  $("count").textContent=arabic?`${list.length} أداة`:`${list.length} tools`;
+  if(!list.length){$("tools").innerHTML=`<div class="empty">${t("No matching tools. Try video, image, voice, or chat.","مفيش أدوات مطابقة. جرّب فيديو أو صورة أو صوت.")}</div>`;$("moreBtn").hidden=true;return}
+  $("tools").innerHTML=list.slice(0,shown).map(x=>`<article class="tool"><div class="tool-top"><div class="ico">${esc(x.icon||"✨")}</div><div><h3>${esc(x.name)}</h3><div class="type">${esc(catLabel(x.category))}</div></div></div><p>${esc(arabic?(x.desc_ar||x.desc_en):(x.desc_en||x.desc_ar))}</p><div class="tags"><span class="tag status status-${esc(x.status)}">${esc(t(stEn[x.status],stAr[x.status])||"")}</span></div><a href="${esc(safeUrl(x.url))}" target="_blank" rel="noopener noreferrer">${t("Open Tool ↗","فتح الأداة ↗")}</a></article>`).join("");
+  const rest=list.length-shown;
+  $("moreBtn").hidden=rest<=0;
+  $("moreBtn").textContent=t(`Show more (${rest})`,`عرض المزيد (${rest})`);
+}
+function refresh(reset){if(reset)shown=PAGE;renderCats();renderTools()}
+
+$("categories").onclick=e=>{const c=e.target.dataset.c;if(c){active=c;refresh(1)}};
+$("chips").onclick=e=>{const s=e.target.dataset.s;if(s){stat=s;refresh(1)}};
+$("moreBtn").onclick=()=>{shown+=PAGE;renderTools()};
+$("searchInput").addEventListener("input",()=>{active="All";refresh(1)});
+$("searchForm").onsubmit=e=>{e.preventDefault();$("toolsTitle").scrollIntoView({behavior:"smooth",block:"start"})};
+$("exploreBtn").onclick=()=>$("categories").scrollIntoView({behavior:"smooth"});
+$("homeBtn").onclick=()=>{active="All";stat="all";$("searchInput").value="";refresh(1);scrollTo({top:0,behavior:"smooth"})};
+$("langBtn").onclick=()=>{
+  arabic=!arabic;document.documentElement.lang=arabic?"ar":"en";document.body.dir=arabic?"rtl":"ltr";
+  $("langBtn").textContent=arabic?"English":"العربية";
+  $("exploreBtn").textContent=arabic?"استكشف":"↗ Explore";$("homeBtn").textContent=arabic?"الرئيسية":"Home";
+  $("eyebrow").textContent=arabic?"مكان واحد. احتمالات بلا حدود":"ONE PLACE. ENDLESS POSSIBILITIES";
+  $("headline").innerHTML=arabic?'اكتشف الذكاء الاصطناعي.<br><span class="purple">أنجز المزيد.</span>':'DISCOVER AI. <span class="cyan">DO</span><br><span class="purple">MORE.</span>';
+  $("sub").textContent=arabic?"اكتشف أداة الذكاء الاصطناعي المناسبة لك — من غير بحث طويل.":"Find the right AI tool for your needs — without the endless searching.";
+  $("searchInput").placeholder=arabic?"ابحث (مثال: فيديو من نص)":"Search (e.g. make a video from text)";
+  $("searchBtn").textContent=arabic?"بحث ↗":"↗ Search";
+  $("catTitle").textContent=arabic?"استكشف الفئات":"Explore Categories";
+  $("catHint").textContent=arabic?"اختر ما تريد إنشاءه":"Pick what you want to create";
+  $("toolsTitle").textContent=arabic?"استكشف أدوات الذكاء الاصطناعي":"Explore AI Tools";
+  $("footer").textContent=arabic?"قد تتغير تفاصيل الأدوات والخطط المجانية — راجع الموقع الرسمي لكل أداة.":"Tool details and free-plan availability may change. Verify on each tool’s official website.";
+  refresh();
+};
+
+async function load(){
+  try{const c=JSON.parse(localStorage.getItem(CACHE)||"null");if(Array.isArray(c)&&c.length){all=c;status="ok";refresh(1)}}catch(e){}
+  try{
+    const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    const {data,error}=await db.from("tools").select("name,category,status,icon,url,desc_en,desc_ar,keywords").order("name").limit(5000);
+    if(error)throw error;
+    all=data;status="ok";
+    try{localStorage.setItem(CACHE,JSON.stringify(data))}catch(e){}
+  }catch(e){if(!all.length)status="error"}
+  refresh(1);
+}
+refresh();load();
+</script></body></html>
