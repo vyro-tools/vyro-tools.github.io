@@ -1,0 +1,102 @@
+<!doctype html><html lang="ar" dir="rtl" translate="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090e20"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="google" content="notranslate"><title>VYRO Control</title>
+<style>
+:root{--bg:#090e20;--p:#111a33;--p2:#172342;--line:#29385f;--t:#f4f6ff;--m:#a6b2d0;--c:#50d8ef;--v:#9b73ff;--g:#54d6a0;--r:#ff7c8b}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#202354 0,transparent 35%),var(--bg);color:var(--t);font-family:system-ui,sans-serif}.wrap{max-width:1000px;margin:auto;padding:16px}header{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{font-size:25px;font-weight:900;letter-spacing:2px}.brand span{color:var(--c)}.pill{font-size:12px;padding:6px 10px;border-radius:30px;color:var(--g);border:1px solid #286b59;background:#102b2a}.panel,.stat{border:1px solid var(--line);border-radius:18px;background:var(--p);padding:15px;margin:14px 0}p{color:var(--m);line-height:1.7}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{margin:0}.stat small{display:block;color:var(--m);font-size:12px}.stat strong{font-size:24px}h2{font-size:17px;margin:0 0 12px}.muted,label{color:var(--m);font-size:12px}button,input,select{font:inherit}button{border:0;border-radius:10px;padding:10px 13px;background:var(--v);color:#fff;font-weight:700;cursor:pointer}button:disabled{opacity:.5}button.secondary{background:var(--p2);border:1px solid var(--line);color:var(--t)}button.danger{background:#482331;border:1px solid #793849;color:#ffc0c8}input,select{width:100%;background:#0c142b;border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--t)}:focus-visible{outline:2px solid var(--c);outline-offset:2px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:grid;gap:6px}.full{grid-column:1/-1}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.toolbar{display:grid;grid-template-columns:1fr 150px;gap:9px;margin-bottom:12px}.tools{display:grid;gap:9px}.tool{background:#0d1730;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px}.ico{width:42px;height:42px;display:grid;place-items:center;background:#202b50;border-radius:12px;font-size:21px;flex-shrink:0}.info{flex:1;min-width:0}.info strong,.info small{display:block}.info small{color:var(--m);margin-top:4px}.tag{display:inline-block;margin-top:6px;font-size:12px;padding:5px 10px;border-radius:30px}.free{background:#10352d;color:#7ee6b7}.freemium{background:#202b52;color:#b8c6ff}.paid{background:#3c2a1d;color:#ffd0a1}.trial{background:#2f2a4d;color:#d6c8ff}.unverified{background:#30374b;color:#d0d6e7}.toolactions{display:flex;gap:6px}.toolactions button{padding:7px 9px;font-size:12px}.msg{font-size:13px;line-height:1.7;min-height:20px}.err{color:var(--r)}.ok{color:var(--g)}.login{max-width:420px;margin:40px auto}[hidden]{display:none!important}@media(max-width:560px){.formgrid,.toolbar{grid-template-columns:1fr}.full{grid-column:auto}.tool{flex-wrap:wrap;align-items:flex-start}.toolactions{width:100%;padding-right:52px}}
+</style></head><body><div class="wrap">
+<header><div class="brand">VYRO<span>.</span></div><div class="pill" id="who">لوحة التحكم</div></header>
+
+<section class="panel" id="setup" hidden><h2>الإعداد ناقص</h2><p>افتح الملف وحط <b>SUPABASE_URL</b> و<b>SUPABASE_ANON_KEY</b> في أول السكريبت.</p></section>
+
+<section class="panel login" id="loginBox" hidden><h2>دخول المدير</h2>
+<form id="loginForm"><div class="field"><label for="email">الإيميل</label><input id="email" type="email" required autocomplete="username"></div>
+<div class="field" style="margin-top:10px"><label for="pass">كلمة السر</label><input id="pass" type="password" required autocomplete="current-password"></div>
+<div class="actions"><button type="submit">دخول</button></div><p class="msg err" id="loginMsg"></p></form></section>
+
+<main id="app" hidden>
+<div class="stats"><div class="stat"><small>إجمالي الأدوات</small><strong id="total">0</strong></div><div class="stat"><small>مجانية</small><strong id="freeCount">0</strong></div><div class="stat"><small>مدفوعة / جزئية</small><strong id="paidCount">0</strong></div></div>
+
+<section class="panel"><h2 id="formTitle">إضافة أداة جديدة</h2><form id="toolForm"><div class="formgrid">
+<div class="field"><label for="name">اسم الأداة *</label><input id="name" required placeholder="مثال: Kling AI"></div>
+<div class="field"><label for="category">التصنيف *</label><select id="category"><option>Video</option><option>Image &amp; Design</option><option>Chat &amp; Research</option><option>Audio &amp; Voice</option><option>Writing</option><option>Editing &amp; Productivity</option><option>Coding</option><option>Other</option></select></div>
+<div class="field"><label for="status">نوع الاشتراك</label><select id="status"><option value="free">مجاني</option><option value="freemium">مجاني جزئياً</option><option value="paid">مدفوع</option><option value="trial">تجربة مجانية</option><option value="unverified">غير متأكد</option></select></div>
+<div class="field"><label for="icon">رمز</label><input id="icon" maxlength="4" value="✨"></div>
+<div class="field full"><label for="url">رابط الموقع الرسمي *</label><input id="url" type="url" required placeholder="https://example.com"></div>
+<div class="field full"><label for="desc_ar">الوصف بالعربي</label><input id="desc_ar"></div>
+<div class="field full"><label for="desc_en">الوصف بالإنجليزي</label><input id="desc_en" dir="ltr"></div>
+<div class="field full"><label for="keywords">كلمات للبحث (مفصولة بمسافة)</label><input id="keywords"></div>
+</div><div class="actions"><button type="submit" id="saveBtn">حفظ الأداة</button><button type="button" class="secondary" id="cancelBtn" hidden>إلغاء التعديل</button></div><p class="msg" id="formMsg"></p></form></section>
+
+<section class="panel"><h2>الأدوات الموجودة <span class="muted" id="shown"></span></h2>
+<div class="toolbar"><input id="search" placeholder="ابحث عن أداة..."><select id="filter"><option value="all">كل الحالات</option><option value="free">مجاني</option><option value="freemium">مجاني جزئياً</option><option value="paid">مدفوع</option><option value="trial">تجربة</option><option value="unverified">غير متأكد</option></select></div>
+<div class="tools" id="tools"></div><p class="muted" id="empty" hidden>مفيش أدوات مطابقة.</p></section>
+
+<section class="panel"><h2>استيراد وتصدير</h2><p class="muted">الاستيراد بيضيف الأدوات الجديدة ويحدّث الموجودة حسب الرابط. الملف JSON فيه مصفوفة أدوات بالحقول: name, category, status, icon, url, desc_en, desc_ar, keywords.</p>
+<div class="actions"><button class="secondary" id="exportBtn">تصدير JSON</button><button class="secondary" id="importBtn">استيراد JSON</button><input id="fileInput" type="file" accept="application/json" hidden><button class="danger" id="logoutBtn">خروج</button></div><p class="msg" id="ioMsg"></p></section>
+</main></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL="https://znysymqmjxpmcxfqpmqp.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_3-UXEREhL_p90z6FOmUCig_vRpSpCyr";
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const labels={free:"مجاني",freemium:"مجاني جزئياً",paid:"مدفوع",trial:"تجربة",unverified:"غير متأكد"};
+const F=["name","category","status","icon","url","desc_ar","desc_en","keywords"];
+let db,items=[],editing=null;
+
+function say(id,text,ok){const e=$(id);e.textContent=text||"";e.className="msg "+(text?(ok?"ok":"err"):"")}
+
+async function boot(){
+  if(!SUPABASE_URL||!SUPABASE_ANON_KEY){$("setup").hidden=false;return}
+  db=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  const {data:{session}}=await db.auth.getSession();
+  session?await enter(session.user):($("loginBox").hidden=false);
+}
+async function enter(user){
+  const {data}=await db.from("admins").select("user_id").eq("user_id",user.id).maybeSingle();
+  if(!data){await db.auth.signOut();$("loginBox").hidden=false;say("loginMsg","الحساب ده مش مضاف كمدير.");return}
+  $("loginBox").hidden=true;$("app").hidden=false;$("who").textContent=user.email;await load();
+}
+$("loginForm").onsubmit=async e=>{e.preventDefault();say("loginMsg","");
+  const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("pass").value});
+  if(error)return say("loginMsg","الإيميل أو كلمة السر غلط.");enter(data.user)};
+$("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};
+
+async function load(){
+  const {data,error}=await db.from("tools").select("*").order("created_at",{ascending:false}).limit(5000);
+  if(error)return say("ioMsg","تعذر تحميل الأدوات: "+error.message);items=data;render()}
+
+function render(){
+  const q=$("search").value.trim().toLowerCase(),f=$("filter").value;
+  const shown=items.filter(x=>(f==="all"||x.status===f)&&[x.name,x.category,x.desc_ar,x.desc_en,x.keywords].join(" ").toLowerCase().includes(q));
+  $("total").textContent=items.length;
+  $("freeCount").textContent=items.filter(x=>x.status==="free").length;
+  $("paidCount").textContent=items.filter(x=>["paid","freemium"].includes(x.status)).length;
+  $("shown").textContent="("+shown.length+")";$("empty").hidden=shown.length>0;
+  $("tools").innerHTML=shown.slice(0,200).map(x=>`<article class="tool"><div class="ico">${esc(x.icon||"✨")}</div><div class="info"><strong>${esc(x.name)}</strong><small>${esc(x.category)} · ${esc(x.desc_ar||x.desc_en||"بدون وصف")}</small><span class="tag ${esc(x.status)}">${labels[x.status]||""}</span></div><div class="toolactions"><button class="secondary" data-e="${x.id}">تعديل</button><button class="danger" data-d="${x.id}">حذف</button></div></article>`).join("");
+}
+$("tools").onclick=async e=>{
+  const eid=e.target.dataset.e,did=e.target.dataset.d;
+  if(eid){const x=items.find(i=>i.id==eid);editing=x.id;F.forEach(k=>$(k).value=x[k]||"");$("formTitle").textContent="تعديل: "+x.name;$("saveBtn").textContent="حفظ التعديلات";$("cancelBtn").hidden=false;scrollTo({top:0,behavior:"smooth"})}
+  if(did){const x=items.find(i=>i.id==did);if(!confirm("متأكد إنك عايز تحذف "+x.name+"؟"))return;
+    const {error}=await db.from("tools").delete().eq("id",x.id);error?say("ioMsg",error.message):(say("ioMsg","تم الحذف.",1),load())}
+};
+function reset(){editing=null;$("toolForm").reset();$("icon").value="✨";$("formTitle").textContent="إضافة أداة جديدة";$("saveBtn").textContent="حفظ الأداة";$("cancelBtn").hidden=true}
+$("cancelBtn").onclick=reset;$("search").oninput=render;$("filter").onchange=render;
+$("toolForm").onsubmit=async e=>{e.preventDefault();say("formMsg","");$("saveBtn").disabled=true;
+  const row={};F.forEach(k=>row[k]=$(k).value.trim());row.icon=row.icon||"✨";
+  const {error}=editing?await db.from("tools").update(row).eq("id",editing):await db.from("tools").insert(row);
+  $("saveBtn").disabled=false;
+  if(error)return say("formMsg",error.code==="23505"?"الرابط ده مضاف قبل كده.":error.message);
+  say("formMsg","تم الحفظ.",1);reset();load()};
+
+$("exportBtn").onclick=()=>{const rows=items.map(({id,created_at,updated_at,...r})=>r);const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(rows,null,2)],{type:"application/json"}));a.download="vyro-tools-backup.json";a.click();URL.revokeObjectURL(a.href)};
+$("importBtn").onclick=()=>$("fileInput").click();
+$("fileInput").onchange=async e=>{const file=e.target.files[0];if(!file)return;e.target.value="";
+  try{const data=JSON.parse(await file.text());if(!Array.isArray(data))throw 0;
+    const rows=data.filter(r=>r&&r.name&&r.url).map(r=>Object.fromEntries(F.map(k=>[k,r[k]??""])));
+    for(let i=0;i<rows.length;i+=500){const {error}=await db.from("tools").upsert(rows.slice(i,i+500),{onConflict:"url"});if(error)throw error}
+    say("ioMsg","تم استيراد "+rows.length+" أداة.",1);load()}
+  catch(err){say("ioMsg","الملف غير صالح"+(err&&err.message?": "+err.message:"."))}};
+boot();
+</script></body></html>
