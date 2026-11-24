@@ -1,5 +1,5 @@
 /* VYRO Assistant - chat widget. Works without a server. Set AI_URL later to use an AI backend. */
-(function () {var AI_URL = "https://znysymqmjxpmcxfqpmqp.supabase.co/functions/v1/vyro-assistant";
+(function () var AI_URL = "https://znysymqmjxpmcxfqpmqp.supabase.co/functions/v1/vyro-assistant";
   var KEY = "sb_publishable_3-UXEREhL_p90z6FOmUCig_vRpSpCyr";
   var lang = null;
   var ar = function () { return lang ? lang === "ar" : (typeof arabic !== "undefined" && arabic); };
