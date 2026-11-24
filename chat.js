@@ -80,17 +80,146 @@
     if (n.split(" ").length <= 4 && /(paid|مدفوع)/.test(n)) { var p = l.filter(function (t) { return t.status === "paid"; }).slice(0, 4); return { text: p.length ? T("Paid options:", "الخيارات المدفوعة:") : T("None of these are marked paid.", "مفيش حاجة منهم معلّمة مدفوع."), tools: p }; }
     return null;
   }
-  function localAnswer(q) {
-    var e1 = ext(q, "pre"); if (e1) return e1;
-    var fp = filterPrev(q); if (fp) return fp;
-    var n = nrm(q);
-    for (var i = 0; i < FAQ.length; i++) if (FAQ[i][0].test(n) || FAQ[i][0].test(q.toLowerCase())) return { text: FAQ[i][1](), tools: [] };
-    var r = rank(q);
-    if (!r.length) return ext(q, "none") || { text: T("I couldn't find a close match. Try describing the task, e.g. \"create a video from text\" or \"write a script\".", "ما لقيتش أداة مطابقة. جرّب توصف المهمة، مثلاً \"اعمل فيديو من نص\" أو \"اكتب سكريبت\"."), tools: [] };
-    last.list = r; last.shown = Math.min(4, r.length);
-    var more = r.length > 4 ? T(" Say \"more\" for other options.", " قول \"المزيد\" لخيارات تانية.") : "";
-    return { text: T("Here are the best matches:", "دي أنسب الأدوات:") + more, tools: r.slice(0, 4) };
+function localAnswer(q) {
+  var e1 = ext(q, "pre");
+  if (e1) return e1;
+
+  var fp = filterPrev(q);
+  if (fp) return fp;
+
+  var n = nrm(q);
+  var raw = q.toLowerCase();
+
+  // ردود متنوعة وطبيعية
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
+
+  function reply(text) {
+    return { text: text, tools: [] };
+  }
+
+  // التحيات
+  if (/^(hi|hello|hey|hola|مرحبا|اهلا|أهلا|السلام|سلام|هاي|صباح|مساء)/i.test(raw)) {
+    return reply(pick([
+      "يا أهلااا 😄 نورت VYRO! عامل إيه النهارده؟",
+      "أهلا بيك يا صاحبي ❤️ أخبارك إيه؟",
+      "يا مرحب! 😎 داخل نكتشف حاجة جديدة ولا جاي نرغي شوية؟",
+      "أهو ده الكلام! 😂 قولي الدنيا معاك ماشية إزاي؟"
+    ]));
+  }
+
+  // الضحك
+  if (/(هههه|😂|🤣|لول|lmao|haha|hehe)/i.test(raw)) {
+    return reply(pick([
+      "😂😂 طب واضح إننا دخلنا مود الضحك!",
+      "ضحكتك وصلتني والله 😂 طب احكيلي إيه اللي ضحكك؟",
+      "أهو كده بدأنا صح 😂",
+      "استنى بس، شكلي هضحك معاك مش هساعدك النهارده 😂"
+    ]));
+  }
+
+  // الزهق
+  if (/(زهقان|ملل|ممل| bored|boring)/i.test(n)) {
+    return reply(pick([
+      "طب نطرد الزهق ده من هنا 😂 تحب نلعب لعبة، نتكلم في موضوع غريب، ولا أقولك معلومة تخلّي دماغك تلف؟",
+      "الزهق ده عدو البشرية 😂 طب تعالى نغيّر الجو، عندي كذا فكرة ممكن تفوقك.",
+      "ولا يهمك، نغيّر مود خالص 😎 تحب تحدي سريع ولا دردشة في أي موضوع؟"
+    ]));
+  }
+
+  // الحزن أو الضيق
+  if (/(زعلان|متضايق|مخنوق|حزين|تعبان نفسيا|مش مبسوط|مش طايق)/i.test(n)) {
+    return reply(pick([
+      "مالك يا صاحبي؟ ❤️ لو حابب تحكي أنا معاك، خد راحتك ومش لازم ترتّب كلامك.",
+      "حاسس إن يومك مش أحسن حاجة.. تحب تحكي حصل إيه؟",
+      "أنا معاك، فضفض براحتك ❤️ إيه اللي مضايقك؟"
+    ]));
+  }
+
+  // الشكر
+  if (/(thank|thx|شكرا|شكرًا|تسلم|مشكور|حبيبي|حبيبى)/i.test(n)) {
+    return reply(pick([
+      "حبيبي ❤️ ده أنا هنا علشانك!",
+      "ولا يهمك يا صاحبي، تحت أمرك 😄",
+      "العفو يا كبير، لسه معانا كلام كتير 😂"
+    ]));
+  }
+
+  // السؤال عن حال فيرو
+  if (/(عامل ايه|عامل إيه|اخبارك|أخبارك|how are you|how r u|you good)/i.test(n)) {
+    return reply(pick([
+      "أنا تمام وزي الفل 😎 إنت بقى عامل إيه؟",
+      "كله تمام عندي، أحلى حاجة إنك دخلت 😂 أخبارك إيه؟",
+      "فل الفل يا صاحبي ❤️ إنت يومك عامل إيه؟"
+    ]));
+  }
+
+  // المجاملة
+  if (/(انت جامد|أنت جامد|انت حلو|أنت حلو|بحبك|love you|you are great)/i.test(n)) {
+    return reply(pick([
+      "يا عم إنت اللي جامد 😂❤️",
+      "حبيبي والله، كده هتخليني أصدق نفسي 😂",
+      "❤️❤️ ده من ذوقك يا صاحبي!"
+    ]));
+  }
+
+  // لو المستخدم بيقول إنه مش عارف
+  if (/(مش عارف|معرفش|مش فاهم|مش عارف اعمل ايه)/i.test(n)) {
+    return reply(pick([
+      "ولا يهمك، ناخدها واحدة واحدة 😄 قولي بس إيه اللي محيّرك ونفكر فيه سوا.",
+      "عادي جدًا، مش لازم تكون عارف من البداية. احكيلي اللي في دماغك وأنا أساعدك ترتّبه.",
+      "طب خلينا نفكها سوا، إيه أول حاجة واقفة معاك؟"
+    ]));
+  }
+
+  // متابعة الكلام
+  if (/^(طب|طيب|وبعدين|كمل|كمّل|ليه|ازاي|إزاي|بجد|فعلا|فعلاً)/i.test(n)) {
+    var prev = history.length > 1 ? history[history.length - 2].content : "";
+    if (/(زهقان|ملل)/i.test(prev)) {
+      return reply("طب عندي اقتراح 😄 نلعب لعبة أسئلة سريعة، ولا أقولك 3 حاجات غريبة يمكن واحدة تعجبك؟");
+    }
+    return reply(pick([
+      "كمل معايا 😂 إنت تقصد نكمل في نفس الموضوع ولا عندك حاجة تانية في بالك؟",
+      "أنا معاك، وضّحلي بس النقطة دي أكتر علشان أظبطلك الكلام 😄",
+      "طب تعالى نفكر فيها سوا.. تقصد إيه بالظبط؟"
+    ]));
+  }
+
+  // الأسئلة الخاصة بالموقع
+  for (var i = 0; i < FAQ.length; i++) {
+    if (FAQ[i][0].test(n) || FAQ[i][0].test(raw)) {
+      return { text: FAQ[i][1](), tools: [] };
+    }
+  }
+
+  // البحث عن أدوات الذكاء الاصطناعي
+  var r = rank(q);
+
+  if (r.length) {
+    last.list = r;
+    last.shown = Math.min(4, r.length);
+
+    var more = r.length > 4
+      ? T(" Say \"more\" for other options.", " قول \"المزيد\" لخيارات تانية.")
+      : "";
+
+    return {
+      text: T("Here are the best matches:", "لقيتلك شوية أدوات ممكن تناسب طلبك 😎:") + more,
+      tools: r.slice(0, 4)
+    };
+  }
+
+  // الرد الطبيعي عند عدم فهم الرسالة
+  return reply(pick([
+    "طب احكيلي أكتر 😄 عايز تقول إيه بالظبط؟",
+    "أنا معاك، بس وضّحلي قصدك شوية علشان أرد عليك صح ❤️",
+    "ممكن توضحلي أكتر؟ حاسس إن فيه حكاية ورا الكلام ده 😂",
+    "قولّي أكتر، خلينا ناخد الكلام واحدة واحدة.",
+    "مش عايز أفتي عليك 😅 وضّحلي قصدك وأنا معاك."
+  ]));
+    }
+  
   function aiAnswer(q) {
     var msgs = history.slice(-7).concat([{ role: "user", content: q }]);
     return fetch(AI_URL, { method: "POST", headers: { "Content-Type": "application/json", apikey: KEY }, body: JSON.stringify({ lang: ar() ? "ar" : "en", messages: msgs }) })
