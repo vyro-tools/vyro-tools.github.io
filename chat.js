@@ -234,7 +234,17 @@ function localAnswer(q) {
       var b = bubble("bot", res.text); cards(b, res.tools || []); history.push({ role: "assistant", content: res.text });
       if (window.speechSynthesis) { var sp = document.createElement("button"); sp.type = "button"; sp.className = "vc-say"; sp.textContent = "🔊 " + T("Listen", "استمع"); sp.onclick = function () { sayIt(res.text + ". " + (res.tools || []).map(function (t) { return t.name; }).join(", ")); }; b.appendChild(sp); }
     };
-    if (AI_URL) { aiAnswer(q).then(done, function () { done(localAnswer(q)); }); } else { done(localAnswer(q)); }
+    if (AI_URL) {
+  aiAnswer(q).then(done, function (e) {
+    console.error("VYRO AI ERROR:", e);
+    done({
+      text: "تعذر الاتصال بالذكاء الاصطناعي. محتاجين نراجع الاتصال بـ Supabase.",
+      tools: []
+    });
+  });
+} else {
+  done(localAnswer(q));
+}
   }
   function stopRec() { try { if (rec) rec.stop(); } catch (e) {} }
   vl.onclick = function () { vlang = vlang === "ar-EG" ? "en-US" : "ar-EG"; vl.textContent = vlang === "ar-EG" ? "ع" : "EN"; };
