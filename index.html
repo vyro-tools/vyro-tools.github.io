@@ -119,7 +119,46 @@ function finderScore(x,q){
  return sc+(doms.length?5:0)+bonus;
 }
 function runFinder(q){const query=q.trim();if(!query)return;const r0=all.map(x=>({x,score:finderScore(x,query)})).filter(a=>a.score>0).sort((a,b)=>b.score-a.score||a.x.name.localeCompare(b.x.name));const top=r0.length?r0[0].score:0;const ranked=r0.filter(a=>a.score>=top*0.5).slice(0,24);active="All";stat="all";$("searchInput").value="";shown=30;renderCats();const list=ranked.map(a=>a.x);if(!list.length){$("toolsTitle").textContent=arabic?"النتائج المقترحة":"Suggested tools";$ ("count").textContent=arabic?"0 أدوات":"0 tools";$ ("tools").innerHTML=`<div class="empty">${t("No matches yet. Try another description.","مفيش نتائج. جرّب وصف تاني.")}</div>`;$ ("moreBtn").hidden=true;return}const original=all;all=list;renderTools();all=original;$ ("toolsTitle").textContent=arabic?"النتائج المقترحة":"Suggested tools";$ ("count").textContent=arabic?`${list.length} ترشيح`:`${list.length} recommendations`;scrollTo({top:$ ("toolsTitle").getBoundingClientRect().top+scrollY-80,behavior:"smooth"})}
-$("finderForm").onsubmit=e=>{e.preventDefault();runFinder($("finderInput").value)};
+$("
+  $("searchForm").onsubmit=e=>{e.preventDefault();$("toolsTitle").scrollIntoView({behavior:"smooth",block:"start"})};
+$("exploreBtn").onclick=()=>$("categories").scrollIntoView({behavior:"smooth"});
+$("homeBtn").onclick=()=>{active="All";stat="all";$("searchInput").value="";refresh(1);scrollTo({top:0,behavior:"smooth"})};
+$("langBtn").onclick=()=>{
+  arabic=!arabic;document.documentElement.lang=arabic?"ar":"en";document.body.dir=arabic?"rtl":"ltr";
+  $("langBtn").textContent=arabic?"English":"العربية";
+  $("exploreBtn").textContent=arabic?"استكشف":"↗ Explore";$("homeBtn").textContent=arabic?"الرئيسية":"Home";
+  $("eyebrow").textContent=arabic?"مكان واحد. احتمالات بلا حدود":"ONE PLACE. ENDLESS POSSIBILITIES";
+  $("headline").innerHTML=arabic?'اكتشف الذكاء الاصطناعي.<br><span class="purple">أنجز المزيد.</span>':'DISCOVER AI. <span class="cyan">DO</span><br><span class="purple">MORE.</span>';
+  $("sub").textContent=arabic?"اكتشف أداة الذكاء الاصطناعي المناسبة لك — من غير بحث طويل.":"Find the right AI tool for your needs — without the endless searching.";
+  $("searchInput").placeholder=arabic?"ابحث (مثال: فيديو من نص)":"Search (e.g. make a video from text)";
+  $("searchBtn").textContent=arabic?"بحث ↗":"↗ Search";
+  $("catTitle").textContent=arabic?"استكشف الفئات":"Explore Categories";
+  $("catHint").textContent=arabic?"اختر ما تريد إنشاءه":"Pick what you want to create";
+  $("toolsTitle").textContent=arabic?"استكشف أدوات الذكاء الاصطناعي":"Explore AI Tools";
+  $("footer").textContent=arabic?"قد تتغير تفاصيل الأدوات والخطط المجانية — راجع الموقع الرسمي لكل أداة.":"Tool details and free-plan availability may change. Verify on each tool’s official website.";
+  $("finderTitle").textContent=arabic?"✨ مساعد VYRO":"✨ AI Finder";
+  $("finderSub").textContent=arabic?"اكتب عايز تعمل إيه — وهنرشحلك الأدوات المناسبة.":"Tell VYRO what you want to do — discover tools that fit your goal.";
+  $("finderInput").placeholder=arabic?"مثال: اعمل فيديو من نص، شيل خلفية صورة، اكتب سكريبت":"e.g. create a video from text, remove background, write a script";
+  $("finderBtn").textContent=arabic?"اعثر على أدوات":"Find tools";
+  $("finderNote").textContent=arabic?"نسخة تجريبية للمطابقة الذكية: الترشيحات حسب وصف الأداة والكلمات المفتاحية.":"Prototype: task-aware ranking prioritizes relevant tool descriptions and reduces unrelated categories.";
+  renderFinderExamples();
+  refresh();
+};
+
+
+async function load(){
+  try{const c=JSON.parse(localStorage.getItem(CACHE)||"null");if(Array.isArray(c)&&c.length){all=c;status="ok";refresh(1)}}catch(e){}
+  try{
+    const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    const {data,error}=await db.from("tools").select("name,category,status,icon,url,desc_en,desc_ar,keywords").order("name").limit(5000);
+    if(error)throw error;
+    all=data;status="ok";
+    try{localStorage.setItem(CACHE,JSON.stringify(data))}catch(e){}
+  }catch(e){if(!all.length)status="error"}
+  refresh(1);
+}
+refresh();load();
+</script><script src="chat.js"></script></body></html>();runFinder($("finderInput").value)};
 $("finderExamples").onclick=e=>{const q=e.target.dataset.q;if(q){$("finderInput").value=q;runFinder(q)}};
 function refresh(reset){if(reset)shown=PAGE;renderCats();renderTools()}
 
